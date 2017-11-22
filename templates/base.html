@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load blog_tags %}
 
 <!doctype html>
 <html>
@@ -11,6 +12,7 @@
   <title>BLOG index with sidebar & slider  | Amaze UI Examples</title>
   <meta name="renderer" content="webkit">
   <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <link rel="stylesheet" href="{% static 'blog/css/github.css' %}">
   <link rel="icon" type="image/png" href="{% static 'blog/i/favicon.png' %}">
   <meta name="mobile-web-app-capable" content="yes">
   <link rel="icon" sizes="192x192" href="{% static 'blog/i/app-icon72x72@2x.png' %}">
@@ -112,6 +114,39 @@
                 <li><a href="#">我把最深沉的秘密放在那里。</a></li>
                 <li><a href="#">你不懂我，我不怪你。</a></li>
                 <li><a href="#">每个人都有一道伤口， 或深或浅，盖上布，以为不存在。</a></li>
+            </ul>
+        </div>
+        <div class="blog-sidebar-widget blog-bor">
+            <h2 class="blog-title"><span>最新文章</span></h2>
+            {% get_recent_articles as recent_article_list %}
+            <ul class="am-list">
+              {% for article in recent_article_list %}
+                <li><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></li>
+              {% empty %}
+              暂无文章！
+              {% endfor %}
+            </ul>
+        </div>
+        <div class="blog-sidebar-widget blog-bor">
+            <h2 class="blog-title"><span>归档</span></h2>
+            {% archives as date_list %}
+            <ul class="am-list">
+              {% for date in date_list %}
+                <li><a href="{% url 'blog:archives' date.year date.month %}">{{ date.year }} 年 {{ date.month }} 月</a></li>
+              {% empty %}
+              暂无归档！
+              {% endfor %}
+            </ul>
+        </div>
+        <div class="blog-sidebar-widget blog-bor">
+            <h2 class="blog-title"><span>分类</span></h2>
+            {% get_categories as category_list %}
+            <ul class="am-list">
+              {% for category in category_list %}
+                <li><a href="{% url 'blog:category' category.pk %}">{{ category.name }}</a></li>
+              {% empty %}
+              暂无分类！
+              {% endfor %}
             </ul>
         </div>
     </div>
