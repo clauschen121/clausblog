@@ -6,9 +6,12 @@
         <div class="am-article-hd">
           <h1 class="am-article-title blog-text-center">{{ article.title }}</h1>
           <p class="am-article-meta blog-text-center">
-              <span><a href="#" class="blog-color">{{ article.category }}</a></span>-
+              <span><a href="{% url 'blog:category' article.category_id %}" class="blog-color">{{ article.category }}</a></span>-
               <span><a href="#">{{ article.author }}</a></span>-
               <span><a href="#">{{ article.created_time }}</a></span>
+              <span>阅读量：{{ article.views }}</span>
+              <span>评论量：{{ article.comment_set.count }}</span>
+
           </p>
         </div>        
         <div class="am-article-bd">
@@ -45,22 +48,27 @@
         
         <hr>
 
-        <form class="am-form am-g">
+        <form action="{% url 'comments:article_comment' article.pk %}" class="am-form am-g" method="post">
+          {% csrf_token %}
             <h3 class="blog-comment">评论</h3>
           <fieldset>
             <div class="am-form-group am-u-sm-4 blog-clear-left">
-              <input type="text" class="" placeholder="名字">
+              {{ form.name }}
+              {{ form.name.errors }}
             </div>
             <div class="am-form-group am-u-sm-4">
-              <input type="email" class="" placeholder="邮箱">
+              {{ form.email }}
+              {{ form.email.errors }}
             </div>
 
             <div class="am-form-group am-u-sm-4 blog-clear-right">
-              <input type="password" class="" placeholder="网站">
+              {{ form.url }}
+              {{ form.url.errors }}
             </div>
         
             <div class="am-form-group">
-              <textarea class="" rows="5" placeholder="一字千金"></textarea>
+              {{ form.text }}
+              {{ form.text.errors }}
             </div>
         
             <p><button type="submit" class="am-btn am-btn-default">发表评论</button></p>
@@ -68,6 +76,21 @@
         </form>
 
         <hr>
+        <ul>
+          {% for comment in comment_list  %}
+          <li>
+            <span>{{ comment.name }}</span>
+            <time> {{ comment.created_time }} </time>
+            <div>
+              {{ comment.text }}
+            </div>
+            
+          </li>
+          {% empty %}
+          暂无评论
+          {% endfor %}
+        </ul>
+
     </div>
 
 
