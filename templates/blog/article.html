@@ -22,7 +22,10 @@
         
         <div class="am-g blog-article-widget blog-article-margin">
           <div class="am-u-lg-4 am-u-md-5 am-u-sm-7 am-u-sm-centered blog-text-center">
-            <span class="am-icon-tags"> &nbsp;</span><a href="#">标签</a> , <a href="#">TAG</a> , <a href="#">啦啦</a>
+            <span class="am-icon-tags"> &nbsp;</span>标签<br/>
+            {% for tag in article.tags.all %}
+            <a href="#">{{ tag.name }}</a>&nbsp;&nbsp;
+            {% endfor %}
             <hr>
             <a href=""><span class="am-icon-qq am-icon-fw am-primary blog-icon"></span></a>
             <a href=""><span class="am-icon-wechat am-icon-fw blog-icon"></span></a>
@@ -41,13 +44,40 @@
           </div>
         </div>
         <hr>
+        {% if is_paginated %}
         <ul class="am-pagination blog-article-margin">
-          <li class="am-pagination-prev"><a href="#" class="">&laquo; 一切的回顾</a></li>
-          <li class="am-pagination-next"><a href="">不远的未来 &raquo;</a></li>
+          <li class="am-pagination-prev">
+          {% if first %}
+            <a href="?page=1">1</a>
+          {% endif %}
+          {% if left %}
+            {% if left_has_more %}
+              <span>...</span>
+            {% endif %}
+            {% for i in left %}
+              <a href="?page={{ i }}">{{ i }}</a>
+            {% endfor %}
+          {% endif %}
+          <a href="?page={{ page_obj.number }}">{{ page_obj.number }}</a>
+          {% if right %}
+            {% for i in right %}
+              <a href="?page={{ i }}">{{ i }}</a>
+            {% endfor %}
+            {% if right_has_more %}
+              <span>...</span>
+            {% endif %}
+          {% endif %}
+          {% if last %}
+            <a href="?page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a>
+          {% endif %}
+
+          </li>
+          <!-- <li class="am-pagination-next"><a href="">不远的未来 &raquo;</a></li> -->
         </ul>
+
         
         <hr>
-
+        {% endif %}
         <form action="{% url 'comments:article_comment' article.pk %}" class="am-form am-g" method="post">
           {% csrf_token %}
             <h3 class="blog-comment">评论</h3>

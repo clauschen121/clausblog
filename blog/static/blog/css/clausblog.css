@@ -1,0 +1,25 @@
+@charset "UTF-8";
+/**
+ * 
+ * @authors Claus Chen (245618722@qq.com)
+ * @date    2017-11-27 11:40:40
+ * @version $Id$
+ */
+
+ul.am-pagination{
+	padding:0;
+	text-align: center;
+}
+
+li.am-pagination-prev {
+	margin: 5px auto;
+	display: inline-block;
+	width: 100%;
+}
+li.am-pagination-prev a, li.am-pagination-prev span {
+	display: inline-block;
+}
+
+span.highlighted {
+	color: red;
+}

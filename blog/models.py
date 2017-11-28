@@ -35,7 +35,7 @@ class Article(models.Model):
     title = models.CharField(max_length=70)
     body = models.TextField()
     created_time = models.DateTimeField()
-    modified_time = models.DateTimeField()
+    modified_time = models.DateTimeField(auto_now_add=True)
     excerpt = models.CharField(max_length=200, blank=True)
     image = models.CharField(max_length=100)
 

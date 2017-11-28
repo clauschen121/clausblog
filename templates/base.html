@@ -24,6 +24,7 @@
   <meta name="msapplication-TileColor" content="#0e90d2">
   <link rel="stylesheet" href="{% static 'blog/css/amazeui.min.css' %}">
   <link rel="stylesheet" href="{% static 'blog/css/app.css' %}">
+  <link rel="stylesheet" href="{% static 'blog/css/clausblog.css' %}">
 </head>
 
 <body id="blog">
@@ -57,12 +58,16 @@
       <li><a href="lw-img.html">图片库</a></li>
       <li><a href="lw-article-fullwidth.html">全宽页面</a></li>
       <li><a href="lw-timeline.html">存档</a></li>
+      <li><a href="{% url 'rss' %}"><span class="am-icon-rss am-icon-fw"></span>RSS订阅</a></li>
     </ul>
-    <form class="am-topbar-form am-topbar-right am-form-inline" role="search">
+
+    <form class="am-topbar-form am-topbar-right am-form-inline" role="search" method="get" action="{% url 'haystack_search' %}">
       <div class="am-form-group">
-        <input type="text" class="am-form-field am-input-sm" placeholder="搜索">
+        <input type="text" name='q' class="am-form-field am-input-sm" placeholder="搜索">
+        <button type=submit><span class='am-icon-search am-icon-fw'></span></button>
       </div>
     </form>
+    
   </div>
 </nav>
 <hr>
@@ -98,13 +103,13 @@
         </div>
         <div class="blog-clear-margin blog-sidebar-widget blog-bor am-g ">
             <h2 class="blog-title"><span>TAG cloud</span></h2>
+            {% get_tags as tag_list %}
             <div class="am-u-sm-12 blog-clear-padding">
-            <a href="" class="blog-tag">amaze</a>
-            <a href="" class="blog-tag">妹纸 UI</a>
-            <a href="" class="blog-tag">HTML5</a>
-            <a href="" class="blog-tag">这是标签</a>
-            <a href="" class="blog-tag">Impossible</a>
-            <a href="" class="blog-tag">开源前端框架</a>
+              {% for tag in tag_list %}
+              <a href="{% url 'blog:tag' tag.pk %}" class="blog-tag">{{ tag.name }}</a>
+              {% empty %}
+              暂无标签
+              {% endfor %}
             </div>
         </div>
         <div class="blog-sidebar-widget blog-bor">
@@ -143,7 +148,9 @@
             {% get_categories as category_list %}
             <ul class="am-list">
               {% for category in category_list %}
-                <li><a href="{% url 'blog:category' category.pk %}">{{ category.name }}</a></li>
+                <li>
+                  <a href="{% url 'blog:category' category.pk %}">{{ category.name }}   ({{ category.num_articles }})</a>
+                </li>
               {% empty %}
               暂无分类！
               {% endfor %}
