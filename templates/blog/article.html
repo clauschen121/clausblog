@@ -15,7 +15,7 @@
           </p>
         </div>        
         <div class="am-article-bd">
-        <img src="assets/i/f10.jpg" alt="" class="blog-entry-img blog-article-margin">          
+        <img src="{{ article.image.img.url }}" alt="{{ article.image.img.name }}" class="blog-entry-img blog-article-margin">          
         {{ article.body|safe }}
         </div>
       </article>

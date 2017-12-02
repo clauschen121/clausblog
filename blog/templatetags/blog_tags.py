@@ -29,3 +29,8 @@ def get_categories():
 @register.simple_tag
 def get_tags():
 	return Tag.objects.annotate(num_articles=Count('article')).filter(num_articles__gt=0)
+
+
+@register.simple_tag
+def get_sliders(num=5):
+	return Article.objects.all().filter(slider=True)[:num]

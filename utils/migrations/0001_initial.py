@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-import django.db.models.deletion
+import system.storage
 
 
 class Migration(migrations.Migration):
@@ -11,20 +11,18 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('blog', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Comment',
+            name='UploadImage',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('email', models.EmailField(max_length=255)),
-                ('url', models.URLField(blank=True)),
-                ('text', models.TextField()),
+                ('name', models.CharField(max_length=50)),
+                ('img', models.ImageField(height_field='height', storage=system.storage.ImageStorage(), upload_to='images', width_field='width')),
+                ('height', models.PositiveIntegerField(default=200)),
+                ('width', models.PositiveIntegerField(default=300)),
                 ('created_time', models.DateTimeField(auto_now_add=True)),
-                ('article', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='blog.Article')),
             ],
         ),
     ]

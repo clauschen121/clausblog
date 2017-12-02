@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 import markdown
 from django.utils.html import strip_tags
+
 # Create your models here.
 
 
@@ -34,16 +35,18 @@ class Article(models.Model):
 
     title = models.CharField(max_length=70)
     body = models.TextField()
-    created_time = models.DateTimeField()
-    modified_time = models.DateTimeField(auto_now_add=True)
+    created_time = models.DateTimeField(auto_now_add=True)
+    modified_time = models.DateTimeField(auto_now=True)
     excerpt = models.CharField(max_length=200, blank=True)
-    image = models.CharField(max_length=100)
+    image = models.ForeignKey('utils.UploadImage')
 
     category = models.ForeignKey(Category)
     tags = models.ManyToManyField(Tag, blank=True)
     author = models.ForeignKey(User)
 
     views = models.PositiveIntegerField(default=0)
+    slider = models.BooleanField(default=False)
+    likes = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.title
@@ -67,3 +70,4 @@ class Article(models.Model):
             self.excerpt = strip_tags(md.convert(self.body))[:54]
 
         super(Article, self).save(*args, **kwargs)
+
