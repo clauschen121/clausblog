@@ -44,7 +44,7 @@
           </div>
         </div>
         <hr>
-        {% if is_paginated %}
+        <!-- {% if is_paginated %}
         <ul class="am-pagination blog-article-margin">
           <li class="am-pagination-prev">
           {% if first %}
@@ -72,12 +72,29 @@
           {% endif %}
 
           </li>
-          <!-- <li class="am-pagination-next"><a href="">不远的未来 &raquo;</a></li> -->
+          <li class="am-pagination-next"><a href="">不远的未来 &raquo;</a></li>
         </ul>
 
         
         <hr>
-        {% endif %}
+        {% endif %} -->
+        <ul class="am-pagination blog-article-margin">
+          <li class="am-pagination-prev">
+            {% if pre_article %}
+            <a href="{% url 'blog:article' pre_article.pk %}">&laquo; {{ pre_article.title }}</a>
+            {% else %}
+            &laquo; 暂无上一篇文章
+            {% endif %}
+          </li>
+          <li class="am-pagination-next">
+            {% if next_article %}
+            <a href="{% url 'blog:article' next_article.pk %}">{{ next_article.title }} &raquo;</a>
+            {% else %}
+            暂无下一篇文章 &raquo;
+            {% endif %}
+          </li>
+        </ul>
+
         <form action="{% url 'comments:article_comment' article.pk %}" class="am-form am-g" method="post">
           {% csrf_token %}
             <h3 class="blog-comment">评论</h3>

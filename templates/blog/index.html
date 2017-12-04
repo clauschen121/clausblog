@@ -2,13 +2,13 @@
 {% load blog_tags %}
 {% block banner %}
 <div class="am-g am-g-fixed blog-fixed am-u-sm-centered blog-article-margin">
-    <div data-am-widget="slider" class="am-slider am-slider-b1" data-am-slider='{&quot;controlNav&quot;:false}' >
+    <div data-am-widget="slider" class="am-slider am-slider-default slider-blog" data-am-slider='{&quot;controlNav&quot;:false}' >
     {% get_sliders as slider_list %}
     <ul class="am-slides">
       {% for slider in slider_list %}
       <li>
             <img src="{{ slider.image.img.url }}">
-            <div class="blog-slider-desc am-slider-desc ">
+            <!-- <div class="blog-slider-desc am-slider-desc ">
                 <div class="blog-text-center blog-slider-con">
                     <span><a href="" class="blog-color">{{ slider.category }} &nbsp;</a></span>               
                     <h1 class="blog-h-margin"><a href="">{{ slider.title }}</a></h1>
@@ -17,6 +17,9 @@
                     <span class="blog-bor">{{ slider.created_time }}</span>
                     <br><br><br><br><br><br><br>                
                 </div>
+            </div> -->
+            <div class="am-slider-desc">
+              {{ slider.title }}
             </div>
       </li>
       {% empty %}
@@ -47,8 +50,8 @@
         暂无文章
     {% endfor %}
     {% if is_paginated %}
-        <ul class="am-pagination blog-article-margin">
-          <li class="am-pagination-prev">
+        <ul class="am-pagination blog-article-margin claus-pagination">
+          <li class="am-pagination-prev claus-pagination-prev">
           {% if first %}
             <a href="?page=1">1</a>
           {% endif %}
@@ -75,7 +78,7 @@
 
           <!-- <li class="am-pagination-next"><a href="">不远的未来 &raquo;</a></li> -->
         </ul>
-        {% endif %}
+    {% endif %}
     </div>
 {% endblock main %}
  

@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="keywords" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>BLOG index with sidebar & slider  | Amaze UI Examples</title>
+  <title>奕飞扬|陈枭的个人博客</title>
   <meta name="renderer" content="webkit">
   <meta http-equiv="Cache-Control" content="no-siteapp"/>
   <link rel="stylesheet" href="{% static 'blog/css/github.css' %}">
@@ -31,8 +31,11 @@
 
 <header class="am-g am-g-fixed blog-fixed blog-text-center blog-header">
     <div class="am-u-sm-8 am-u-sm-centered">
-        <img width="200" src="http://s.amazeui.org/media/i/brand/amazeui-b.png" alt="Amaze UI Logo"/>
-        <h2 class="am-hide-sm-only">中国首个开源 HTML5 跨屏前端框架</h2>
+        <!-- <img width="200" src="http://s.amazeui.org/media/i/brand/amazeui-b.png" alt="Amaze UI Logo"/> -->
+        <h2 class="am-hide-sm-only">
+          <span class="claus-domain am-kai">奕飞扬</span>
+          <span class="claus-title">陈枭的个人博客</span>
+        </h2>
     </div>
 </header>
 <hr>
@@ -45,19 +48,29 @@
       <li class="am-active"><a href="{% url 'blog:index' %}">首页</a></li>
       <li class="am-dropdown" data-am-dropdown>
         <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
-          首页布局 <span class="am-icon-caret-down"></span>
+          技术杂谈 <span class="am-icon-caret-down"></span>
         </a>
         <ul class="am-dropdown-content">
-          <li><a href="lw-index.html">1. blog-index-standard</a></li>         
-          <li><a href="lw-index-nosidebar.html">2. blog-index-nosidebar</a></li>
-          <li><a href="lw-index-center.html">3. blog-index-layout</a></li>
-          <li><a href="lw-index-noslider.html">4. blog-index-noslider</a></li>
+          <li><a href="lw-index.html">Python</a></li>         
+          <li><a href="lw-index-nosidebar.html">web前端</a></li>
+          <li><a href="lw-index-center.html">通信技术</a></li>
+          <li><a href="lw-index-noslider.html">转载知识</a></li>
+          <li><a href="">其他</a></li>
         </ul>
       </li>
-      <li><a href="lw-article.html">标准文章</a></li>
-      <li><a href="lw-img.html">图片库</a></li>
-      <li><a href="lw-article-fullwidth.html">全宽页面</a></li>
-      <li><a href="lw-timeline.html">存档</a></li>
+      <li class="am-dropdown" data-am-dropdown>
+        <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+          心情随笔 <span class="am-icon-caret-down"></span>
+        </a>
+        <ul class="am-dropdown-content">
+          <li><a href="lw-index.html">个人日志</a></li>         
+          <li><a href="lw-index-nosidebar.html">图片故事</a></li>
+        </ul>
+      </li>
+      <li><a href="lw-img.html">工具集合</a></li>
+      <li><a href="lw-article-fullwidth.html">博主介绍</a></li>
+      <li><a href="">留言</a></li>
+      <li><a href="lw-timeline.html">赞助作者</a></li>
       <li><a href="{% url 'rss' %}"><span class="am-icon-rss am-icon-fw"></span>RSS订阅</a></li>
     </ul>
 

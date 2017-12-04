@@ -133,11 +133,33 @@ class ArticleView(DetailView):
         context = super(ArticleView, self).get_context_data(**kwargs)
         form = CommentForm()
         comment_list = self.object.comment_set.all()
+        pre_article = self.get_pre_article()
+        next_article = self.get_next_article()
         context.update({
             'form': form,
-            'comment_list': comment_list
+            'comment_list': comment_list,
+            'pre_article': pre_article,
+            'next_article': next_article,
         })
         return context
+
+    def get_pre_article(self):
+        pre_article = Article.objects.filter(
+            id__gt=self.kwargs.get('pk')).order_by('id')
+        if pre_article.count() > 0:
+            pre_article = pre_article[0]
+        else:
+            pre_article = None
+        return pre_article
+
+    def get_next_article(self):
+        next_article = Article.objects.filter(
+            id__lt=self.kwargs.get('pk')).order_by('-id')
+        if next_article.count() > 0:
+            next_article = next_article[0]
+        else:
+            next_article = None
+        return next_article
 
 
 '''
@@ -182,6 +204,7 @@ class CategoryView(IndexView):
 
 
 class TagView(IndexView):
+
     def get_queryset(self):
         tag = get_object_or_404(Tag, pk=self.kwargs.get('pk'))
         return super(TagView, self).get_queryset().filter(tags=tag)

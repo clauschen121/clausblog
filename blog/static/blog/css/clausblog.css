@@ -6,20 +6,40 @@
  * @version $Id$
  */
 
-ul.am-pagination{
+ul.claus-pagination{
 	padding:0;
 	text-align: center;
 }
 
-li.am-pagination-prev {
+li.claus-pagination-prev {
 	margin: 5px auto;
 	display: inline-block;
 	width: 100%;
 }
-li.am-pagination-prev a, li.am-pagination-prev span {
+li.claus-pagination-prev a, li.claus-pagination-prev span {
 	display: inline-block;
 }
 
 span.highlighted {
 	color: red;
+}
+
+img.am-radius {
+	border-radius: 20px;
+}
+
+.claus-domain {
+	font-size:50px;
+	letter-spacing: 2px;
+	font-weight: normal;
+}
+
+.claus-title {
+	margin-left: 20px;
+	font-weight: normal;
+	letter-spacing: 2px;
+}
+
+ul.am-dropdown-content li a:hover {
+	color: #10D07A;
 }
