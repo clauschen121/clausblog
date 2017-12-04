@@ -42,7 +42,7 @@ class Article(models.Model):
 
     category = models.ForeignKey(Category)
     tags = models.ManyToManyField(Tag, blank=True)
-    author = models.ForeignKey(User)
+    author = models.ForeignKey('MyUser.UserProfile')
 
     views = models.PositiveIntegerField(default=0)
     slider = models.BooleanField(default=False)
@@ -67,7 +67,6 @@ class Article(models.Model):
                 'markdown.extensions.extra',
                 'markdown.extensions.codehilite',
             ])
-            self.excerpt = strip_tags(md.convert(self.body))[:54]
+            self.excerpt = strip_tags(md.convert(self.body))[:54] + '...'
 
         super(Article, self).save(*args, **kwargs)
-

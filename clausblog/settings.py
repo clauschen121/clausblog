@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'comments',
+    'MyUser',
     'haystack',
     'utils',
 ]
@@ -54,6 +55,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'clausblog.urls'
+
+AUTH_PROFILE_MODULE = 'MyUser.UserProfile'
 
 HAYSTACK_CONNECTIONS = {
     'default': {

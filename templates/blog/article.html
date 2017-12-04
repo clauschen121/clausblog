@@ -15,7 +15,9 @@
           </p>
         </div>        
         <div class="am-article-bd">
-        <img src="{{ article.image.img.url }}" alt="{{ article.image.img.name }}" class="blog-entry-img blog-article-margin">          
+        <figure data-am-widget="figure" class="am am-figure am-figure-default "   data-am-figure="{  pureview: 'true' }">
+        <img src="{{ article.image.img.url }}" alt="{{ article.image.img.name }}" class="blog-entry-img blog-article-margin">     
+        </figure>     
         {{ article.body|safe }}
         </div>
       </article>
@@ -24,23 +26,29 @@
           <div class="am-u-lg-4 am-u-md-5 am-u-sm-7 am-u-sm-centered blog-text-center">
             <span class="am-icon-tags"> &nbsp;</span>标签<br/>
             {% for tag in article.tags.all %}
-            <a href="#">{{ tag.name }}</a>&nbsp;&nbsp;
+            <a href="{% url 'blog:tag' tag.pk %}">{{ tag.name }}</a>&nbsp;&nbsp;
             {% endfor %}
             <hr>
-            <a href=""><span class="am-icon-qq am-icon-fw am-primary blog-icon"></span></a>
-            <a href=""><span class="am-icon-wechat am-icon-fw blog-icon"></span></a>
-            <a href=""><span class="am-icon-weibo am-icon-fw blog-icon"></span></a>
+            <!-- JiaThis Button BEGIN -->
+            <div class="jiathis_style_48x48">
+              <a class="jiathis_button_tsina"><span class="am-icon-weibo am-icon-fw blog-icon"></span></a>
+              <a class="jiathis_button_weixin"><span class="am-icon-wechat am-icon-fw blog-icon"></span></a>
+              <a class="jiathis_button_cqq"><span class="am-icon-qq am-icon-fw blog-icon"></span></a>
+              <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"><span class="am-icon-chevron-right am-icon-fw blog-icon"></a>
+            </div>
+            <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+            <!-- JiaThis Button END -->
           </div>
         </div>
 
         <hr>
         <div class="am-g blog-author blog-article-margin">
           <div class="am-u-sm-3 am-u-md-3 am-u-lg-2">
-            <img src="assets/i/f15.jpg" alt="" class="blog-author-img am-circle">
+            <img src="{{ article.author.headimg.url }}" alt="" class="blog-author-img am-circle">
           </div>
           <div class="am-u-sm-9 am-u-md-9 am-u-lg-10">
-          <h3><span>作者 &nbsp;: &nbsp;</span><span class="blog-color">amazeui</span></h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <h3><span>作者 &nbsp;: &nbsp;</span><span class="blog-color">{{ article.author}}</span></h3>
+            <p>{{ article.author.description }}</p>
           </div>
         </div>
         <hr>

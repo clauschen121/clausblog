@@ -3,6 +3,7 @@ from .models import Article, Category, Tag
 from comments.forms import CommentForm
 import markdown
 from django.views.generic import ListView, DetailView
+from MyUser.models import UserProfile
 
 
 # Create your views here.
@@ -208,3 +209,10 @@ class TagView(IndexView):
     def get_queryset(self):
         tag = get_object_or_404(Tag, pk=self.kwargs.get('pk'))
         return super(TagView, self).get_queryset().filter(tags=tag)
+
+
+class AuthorView(IndexView):
+
+    def get_queryset(self):
+        author = get_object_or_404(UserProfile, pk=self.kwargs.get('pk'))
+        return super(AuthorView, self).get_queryset().filter(author=author)
