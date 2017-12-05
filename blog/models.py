@@ -1,8 +1,8 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.urls import reverse
 import markdown
 from django.utils.html import strip_tags
+from system.storage import ImageStorage
 
 # Create your models here.
 
@@ -70,3 +70,16 @@ class Article(models.Model):
             self.excerpt = strip_tags(md.convert(self.body))[:54] + '...'
 
         super(Article, self).save(*args, **kwargs)
+
+
+class Gallery(models.Model):
+    name = models.CharField(max_length=50)
+    description = models.CharField(max_length=100)
+    img = models.ImageField(
+        upload_to='images/gallery',
+        storage=ImageStorage()
+    )
+    created_time = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name

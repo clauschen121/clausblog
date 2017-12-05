@@ -17,5 +17,8 @@ urlpatterns = [
     url(r'^category/(?P<pk>[0-9]+)/$',
         views.CategoryView.as_view(), name='category'),
     url(r'^tag/(?P<pk>[0-9]+)/$', views.TagView.as_view(), name='tag'),
-    url(r'^author/(?P<pk>[0-9]+)/$', views.AuthorView.as_view(), name='author')
+    url(r'^author/(?P<pk>[0-9]+)/$',
+        views.AuthorView.as_view(), name='author'),
+    url(r'^gallery/$', views.GalleryView.as_view(), name='gallery'),
+    url(r'^donate/$', views.Donate, name='donate')
 ]

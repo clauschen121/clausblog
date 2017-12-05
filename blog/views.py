@@ -1,9 +1,10 @@
 from django.shortcuts import get_object_or_404
-from .models import Article, Category, Tag
+from .models import Article, Category, Tag, Gallery
 from comments.forms import CommentForm
 import markdown
 from django.views.generic import ListView, DetailView
 from MyUser.models import UserProfile
+from django.shortcuts import render
 
 
 # Create your views here.
@@ -216,3 +217,14 @@ class AuthorView(IndexView):
     def get_queryset(self):
         author = get_object_or_404(UserProfile, pk=self.kwargs.get('pk'))
         return super(AuthorView, self).get_queryset().filter(author=author)
+
+
+class GalleryView(IndexView):
+    model = Gallery
+    template_name = 'blog/gallery.html'
+    context_object_name = 'gallery_list'
+    paginate_by = 30
+
+
+def Donate(request):
+    return render(request, 'blog/donate.html')

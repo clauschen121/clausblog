@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<hr>
+<!-- content srart -->
+<!-- <div class="am-g am-g-fixed blog-fixed blog-content"> -->
+<div class="am-u-md-8 am-u-sm-12">
+  <!-- <figure data-am-widget="figure" class="am am-figure am-figure-default "   data-am-figure="{  pureview: 'true' }">
+      <div id="container">
+        {% for gallery in gallery_list %}          
+          <div><img src="{{ gallery.img.url }}"><h3>{{ gallery.name }}</h3></div>
+        {% empty %}
+        暂时没有图片
+        {% endfor %}  
+    </div> 
+  </figure> -->
+  <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2
+  am-avg-md-3 am-avg-lg-4 am-gallery-overlay" data-am-gallery="{ pureview: true }" >
+    {% for gallery in gallery_list %}
+      <li>
+        <div class="am-gallery-item">
+            <a href="{{ gallery.img.url }}" class="">
+              <img src="{{ gallery.img.url }}"  alt="{{ gallery.description }}"/>
+                <h3 class="am-gallery-title">{{ gallery.description }}</h3>
+                <div class="am-gallery-desc">{{ gallery.created_time }}</div>
+            </a>
+        </div>
+      </li>
+    {% empty %}
+    暂时没有图片
+    {% endfor %}
+  </ul>
+</div>
+{% endblock main %}

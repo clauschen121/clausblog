@@ -53,7 +53,7 @@
         <ul class="am-dropdown-content">
           <li><a href="lw-index.html">Python</a></li>         
           <li><a href="lw-index-nosidebar.html">web前端</a></li>
-          <li><a href="lw-index-center.html">通信技术</a></li>
+          <li><a href="lw-index-center.html">通信网络</a></li>
           <li><a href="lw-index-noslider.html">转载知识</a></li>
           <li><a href="">其他</a></li>
         </ul>
@@ -63,14 +63,15 @@
           心情随笔 <span class="am-icon-caret-down"></span>
         </a>
         <ul class="am-dropdown-content">
-          <li><a href="lw-index.html">个人日志</a></li>         
-          <li><a href="lw-index-nosidebar.html">图片故事</a></li>
+          <li><a href="lw-index.html">个人日志</a></li>
+          <li><a href="#">随便写写</a></li>         
+          <li><a href="/gallery/">图片故事</a></li>
         </ul>
       </li>
-      <li><a href="lw-img.html">工具集合</a></li>
+      <li><a href="lw-img.html">工具介绍</a></li>
       <li><a href="lw-article-fullwidth.html">博主介绍</a></li>
       <li><a href="">留言</a></li>
-      <li><a href="lw-timeline.html">赞助作者</a></li>
+      <li><a href="{% url 'blog:donate' %}">赞助作者</a></li>
       <li><a href="{% url 'rss' %}"><span class="am-icon-rss am-icon-fw"></span>RSS订阅</a></li>
     </ul>
 
@@ -107,9 +108,9 @@
         <div class="blog-sidebar-widget blog-bor">
             <h2 class="blog-text-center blog-title"><span>Contact ME</span></h2>
             <div style="padding-bottom: 20px;">
-                <a href="tencent://message/?uin=245618722&Site=www.ik38.com&Menu=yes"><span class="am-icon-qq am-icon-fw am-primary blog-icon"></span></a>
-                <a href="https://github.com/clauschen121/"><span class="am-icon-github am-icon-fw blog-icon"></span></a>
-                <a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=polangchx@163.com"><span class="am-icon-envelope am-icon-fw blog-icon"></span></a>
+                <a href="tencent://message/?uin=245618722&Site=www.ik38.com&Menu=yes" target="_blank"><span class="am-icon-qq am-icon-fw am-primary blog-icon"></span></a>
+                <a href="https://github.com/clauschen121/" target="_blank"><span class="am-icon-github am-icon-fw blog-icon"></span></a>
+                <a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=polangchx@163.com" target="_blank"><span class="am-icon-envelope am-icon-fw blog-icon"></span></a>
                 <div class="am-dropdown" data-am-dropdown>
                   <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;"><span class="am-icon-weixin am-icon-fw blog-icon"></span></a>
                   <ul class="am-dropdown-content">
@@ -218,5 +219,7 @@
 <script src="assets/js/amazeui.ie8polyfill.min.js"></script>
 <![endif]-->
 <script src="{% static 'blog/js/amazeui.min.js' %}"></script>
+<script src="{% static 'blog/js/pinto.min.js' %}"></script>
+<script src="{% static 'blog/js/img.js' %}"></script>
 </body>
 </html>

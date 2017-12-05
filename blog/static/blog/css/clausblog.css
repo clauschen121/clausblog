@@ -48,3 +48,18 @@ img.claus-entry-img {
 	width: 124px;
 	height: 124px;
 }
+
+img.claus-donateimg {
+	width: 100%;
+	height: auto;
+}
+
+div.claus-donate {
+	width: 40%;
+	float: left;
+	margin: 35px;
+}
+
+div.claus-donate {
+	text-align: center;
+}

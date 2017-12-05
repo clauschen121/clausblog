@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Article, Category, Tag
+from .models import Article, Category, Tag, Gallery
 # Register your models here.
 
 
@@ -17,3 +17,8 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
     list_display = ['name']
+
+
+@admin.register(Gallery)
+class GalleryAdmin(admin.ModelAdmin):
+    list_display = ['name', 'img', 'description', 'created_time']
