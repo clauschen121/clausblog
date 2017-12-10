@@ -7,10 +7,11 @@ from system.storage import ImageStorage
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
-    description = models.CharField(max_length=200)
+    description = models.TextField(max_length=200)
     headimg = models.ImageField(
         upload_to='images/head',
-        storage=ImageStorage()
+        storage=ImageStorage(),
+        default='images/head/default.jpg'
     )
     created_time = models.DateTimeField(auto_now_add=True)
 
