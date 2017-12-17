@@ -21,3 +21,4 @@ def register(request):
         'pform': pform,
         'uform': uform
     })
+

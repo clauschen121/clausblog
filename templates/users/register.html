@@ -8,11 +8,166 @@
 	<meta name="keywords" content="盒老师">
 	<meta name="content" content="盒老师">
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <link type="text/css" rel="stylesheet" href="{% static 'user/css/bootstrap.min.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'user/css/jquery.Jcrop.min.css' %}">
     <link type="text/css" rel="stylesheet" href="{% static 'user/css/login.css' %}">
     <script type="text/javascript" src="{% static 'user/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'user/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'user/js/jquery.Jcrop.min.js' %}"></script>
+    <script type="text/javascript">
+        var jcropApi;
+        function imageClip(fileObj){
+            var file = fileObj.files[0];
+            if(file.size>1024*1024*2){
+                alert('图片大小不能超过2MB!');
+                clearfile();
+                return false;
+            }
+            var r = new FileReader();
+            r.onload = function(e){
+                var data = e.target.result;
+                var image = new Image();
+                var imagew, imageh, nwidth, nheight, ratio;
+                image.onload = function(){
+                    $preview = $('#preview-pane'),
+                    $pcnt = $('.preview-container'),
+                    $pimg = $('.jcrop-preview'),
+                    xsize = $pcnt.width(),
+                    ysize = $pcnt.height();
+                    imagew = image.width;
+                    imageh = image.height;
+                    if(imagew<120 || imageh<120){
+                        alert('图片大小不能小于120*120！');
+                        clearfile();
+                        return
+                    }
+                    [nwidth,nheight,ratio]= setimagewh(imagew,imageh,400);
+                    $('#id_img_r').val(ratio);
+                    $('#element_id').attr('src', r.result);
+                    $pimg.attr('src', r.result);
+                    $('#image_desc').css({'margin-top': Math.round((nheight-120)/2)+'px', 'margin-right': Math.round((550-nwidth-120)/2)+'px'});
+                    $('.modal-body').css({'height': (nheight+30)+'px'});
+                    $('#element_id').css({'max-width':nwidth+'px', 'max-height':nheight+'px', 'width':nwidth+'px', 'height': nheight+'px'});
+                    $
+                    $('#myModal').modal({
+                        backdrop: false
+                    });
+                    if(jcropApi){
+                        jcropApi.destroy()
+                        $('#element_id').Jcrop({
+                            minSize: [120, 120], 
+                            aspectRatio : 1,
+                            onChange: dfvalue,
+                            onSelect: dfvalue,
+                            onRelease: clearvalue
+                        }, function(){
+                            var bounds = this.getBounds();
+                            boundx = bounds[0];
+                            boundy = bounds[1];
+                            jcropApi = this;
+                        })
+                    }else{
+                        $('#element_id').Jcrop({
+                            minSize: [120, 120], 
+                            aspectRatio : 1,
+                            onChange: dfvalue,
+                            onSelect: dfvalue,
+                            onRelease: clearvalue
+                        }, function(){
+                            var bounds = this.getBounds();
+                            boundx = bounds[0];
+                            boundy = bounds[1];
+                            jcropApi = this;
+                        })
+                    }   
+                }
+                image.src = data;                
+            }
+            r.readAsDataURL(file);
+        }
+
+        function setimagewh(width,height,size){
+            if(width>height){
+                if(width>size){
+                    nwidth = size;
+                    ratio = size/width;
+                    nheight = height*ratio;
+                }else{
+                    nwidth = width;
+                    nheight = height;
+                    ratio=1
+                }
+            }else{
+                if(height>size){
+                    nheight = size;
+                    ratio = size/height;
+                    nwidth = width*ratio;
+                }else{
+                    nwidth = width;
+                    nheight = height;
+                    ratio=1
+                }
+            }
+            return [nwidth,nheight,ratio] 
+        }
+        
+        function dfvalue(c){
+            $('#id_img_x').val(c.x);
+            $('#id_img_y').val(c.y);
+            $('#id_img_w').val(c.w);
+            $('#id_img_h').val(c.h);
+            if (parseInt(c.w) > 0){
+
+                var rx = xsize / c.w;
+                var ry = ysize / c.h;
+                $pimg.css({
+                  width: Math.round(rx * boundx) + 'px',
+                  height: Math.round(ry * boundy) + 'px',
+                  marginLeft: '-' + Math.round(rx * c.x) + 'px',
+                  marginTop: '-' + Math.round(ry * c.y) + 'px'
+                });
+            }
+        }
+        function clearvalue(c){
+            $('#id_img_x').val(0);
+            $('#id_img_y').val(0);
+            $('#id_img_w').val(0);
+            $('#id_img_h').val(0);
+            $('#id_img_r').val(1);
+        }
+        function clearfile(){
+            $('#id_orgimg').val('');
+        }
+    </script>
 
 </head>
 <body class="login_bj" >
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" onclick="clearfile()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">请选择头像</h4>
+      </div>
+      <div class="modal-body" style="height: 420px;">
+        <div style="float:left;">
+            <img id='element_id' src="" alt="图片加载失败" style="width:120px; height: 120px;">
+        </div>
+        <div id="preview-pane" style="float:right;">
+            <div id="image_desc" style="text-align: center; margin-bottom: 20px;">头像预览</div>
+            <div class="preview-container" style="width: 120px; height: 120px; margin-right:20px; overflow: hidden;">
+                <img src="" class="jcrop-preview" alt="头像预览">
+            </div>            
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clearfile()">重新选择图片</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">完成</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="zhuce_body">
 	<!-- <div class="logo"><a href="#"><img src="{% static 'user/images/logo.png' %}" width="114" height="54" border="0"></a></div> -->
@@ -38,35 +193,34 @@
                     {{ uform.password2 }}
                     {{ uform.password2.errors }}
                 </div>
-                <!-- {% for field in uform %}
-                    <div class="kuang_txt">
-                        {{ field.label_tag }}
-                        {{ field }}
-                        {{ field.errors }}
-                    </div>
-                {% endfor %} -->
                 <div class="kuang_txt kuang_txtarea">
                     {{ pform.description }}
                     {{ pform.description.errors }}
                 </div>
                 <div class="kuang_txt">
-                    {{ pform.headimg }}
-                    {{ pform.headimg.errors }}
+                    {{ pform.orgimg }}
+                    {{ pform.orgimg.errors }}
                 </div>
-<!--                 {{ uform.as_p }}
-                {{ pform.as_p }} -->
-                <!-- <input name="" type="text" class="kuang_txt phone" placeholder="手机号">
-                <input name="" type="text" class="kuang_txt email" placeholder="邮箱">
-                <input name="" type="text" class="kuang_txt possword" placeholder="密码">
-                <input name="" type="text" class="kuang_txt possword" placeholder="邀请码">
-                <input name="" type="text" class="kuang_txt yanzm" placeholder="验证码"> -->
-                <!-- <div>
-                	<div class="hui_kuang"><img src="{% static 'user/images/zc_22.jpg' %}" width="92" height="31"></div>
-                	<div class="shuaxin"><a href="#"><img src="{% static 'user/images/zc_25.jpg' %}" width="13" height="14"></a></div>
-                </div> -->
-                <!-- <div>
-               		<input name="" type="checkbox" value=""><span>已阅读并同意<a href="#" target="_blank"><span class="lan">《XXXXX使用协议》</span></a></span>
-                </div> -->
+                <div class="kuang_txt">
+                    {{ pform.img_x }}
+                    {{ pform.img_x.errors }}
+                </div>
+                <div class="kuang_txt">
+                    {{ pform.img_y }}
+                    {{ pform.img_y.errors }}
+                </div>
+                <div class="kuang_txt">
+                    {{ pform.img_w }}
+                    {{ pform.img_w.errors }}
+                </div>
+                <div class="kuang_txt">
+                    {{ pform.img_h }}
+                    {{ pform.img_h.errors }}
+                </div>
+                <div class="kuang_txt">
+                    {{ pform.img_r }}
+                    {{ pform.img_r.errors }}
+                </div>
                 <input name="注册" type="submit" class="btn_zhuce" value="注册">
                 </form>
             </div>
@@ -87,6 +241,7 @@
 <!-- <div style="text-align:center;">
 <p>来源:<a href="http://www.mycodes.net/" target="_blank">源码之家</a></p>
 </div> -->
+
 
 </body>
 </html>
