@@ -7,9 +7,9 @@
           <h1 class="am-article-title blog-text-center">{{ article.title }}</h1>
           <p class="am-article-meta blog-text-center">
               <span><a href="{% url 'blog:category' article.category_id %}" class="blog-color">{{ article.category }}</a></span>-
-              <span><a href="#">{{ article.author }}</a></span>-
-              <span><a href="#">{{ article.created_time }}</a></span>
-              <span>阅读量：{{ article.views }}</span>
+              <span><a href="{% url 'blog:author' article.author_id %}">{{ article.author }}</a></span>-
+              <span>{{ article.created_time }} </span>
+              <span>阅读量：{{ article.views }} </span>
               <span>评论量：{{ article.comment_set.count }}</span>
 
           </p>
@@ -52,40 +52,6 @@
           </div>
         </div>
         <hr>
-        <!-- {% if is_paginated %}
-        <ul class="am-pagination blog-article-margin">
-          <li class="am-pagination-prev">
-          {% if first %}
-            <a href="?page=1">1</a>
-          {% endif %}
-          {% if left %}
-            {% if left_has_more %}
-              <span>...</span>
-            {% endif %}
-            {% for i in left %}
-              <a href="?page={{ i }}">{{ i }}</a>
-            {% endfor %}
-          {% endif %}
-          <a href="?page={{ page_obj.number }}">{{ page_obj.number }}</a>
-          {% if right %}
-            {% for i in right %}
-              <a href="?page={{ i }}">{{ i }}</a>
-            {% endfor %}
-            {% if right_has_more %}
-              <span>...</span>
-            {% endif %}
-          {% endif %}
-          {% if last %}
-            <a href="?page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a>
-          {% endif %}
-
-          </li>
-          <li class="am-pagination-next"><a href="">不远的未来 &raquo;</a></li>
-        </ul>
-
-        
-        <hr>
-        {% endif %} -->
         <ul class="am-pagination blog-article-margin">
           <li class="am-pagination-prev">
             {% if pre_article %}
@@ -105,47 +71,46 @@
 
         <form action="{% url 'comments:article_comment' article.pk %}" class="am-form am-g" method="post">
           {% csrf_token %}
-            <h3 class="blog-comment">评论</h3>
-          <fieldset>
-            <div class="am-form-group am-u-sm-4 blog-clear-left">
-              {{ form.name }}
-              {{ form.name.errors }}
-            </div>
-            <div class="am-form-group am-u-sm-4">
-              {{ form.email }}
-              {{ form.email.errors }}
-            </div>
-
-            <div class="am-form-group am-u-sm-4 blog-clear-right">
-              {{ form.url }}
-              {{ form.url.errors }}
-            </div>
-        
+          <h3 class="blog-comment">评论</h3>
+          <fieldset style="margin-bottom: 5px;">
             <div class="am-form-group">
               {{ form.text }}
               {{ form.text.errors }}
             </div>
-        
+            {% if user.is_authenticated %}
+            <div class="am-form-group" style="display: none;">
+              <input name="user" id='id_user' type="text" value="{{ user.userprofile.id }}">
+            </div>
+            {% else %}
+            <script type="text/javascript">
+
+              $('#id_text').attr('disabled',true);
+            </script>
+              登陆后才能评论，请先<a href="{% url 'login' %}?next={{ request.path }}" class="login">登录</a>或<a href="{% url 'users:register' %}?next={{ request.path }}" class="register">注册</a>
+            {% endif %}
             <p><button type="submit" class="am-btn am-btn-default">发表评论</button></p>
           </fieldset>
         </form>
 
-        <hr>
-        <ul>
+        <hr style="background-color:#10D07A; height: 2px; border:none;">
+        <ul style="margin: 0; padding: 0;">
           {% for comment in comment_list  %}
-          <li>
-            <span>{{ comment.name }}</span>
-            <time> {{ comment.created_time }} </time>
-            <div>
-              {{ comment.text }}
+          <li style="list-style: none;">
+            <div class="am-g blog-author blog-article-margin">
+              <div class="am-u-sm-3 am-u-md-3 am-u-lg-2" style="text-align: center;">
+                <img src="{{ comment.user.headimg.url }}" alt="" class="blog-author-img am-circle" style="margin-bottom: 5px;">
+                <span class="blog-color">{{ comment.user.user.username }}</span>
+              </div>
+              <div class="am-u-sm-9 am-u-md-9 am-u-lg-10">
+                <p style="word-break:break-all;">{{ comment.text }}</p>
+              </div>
             </div>
-            
+            <hr>
           </li>
           {% empty %}
           暂无评论
           {% endfor %}
         </ul>
-
     </div>
 
 

@@ -17,9 +17,10 @@ def article_comment(request, article_pk):
             comment.save()
             return redirect(article)
         else:
-            comment_list = article.comment_set.all()
-            context = {'article': article, 'from': form,
-                       'comment_list': comment_list}
-            return render(request, 'blog/article.html', context=context)
+            # comment_list = article.comment_set.all()
+            # context = {'article': article, 'form': form,
+            #            'comment_list': comment_list}
+            # return render(request, 'blog/article.html', context=context)
+            return redirect(article)
 
     return redirect(article)
