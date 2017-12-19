@@ -63,3 +63,17 @@ div.claus-donate {
 div.claus-donate {
 	text-align: center;
 }
+
+span.claus-login{
+	font-weight: normal;
+	font-size: 13px;
+	position: relative;
+	left:450px;
+}
+
+a.logout, a.login, a.register{
+	color:#c36855;
+}
+a.logout:hover, a.login:hover, a.register:hover{
+	color:#10D07A;
+}

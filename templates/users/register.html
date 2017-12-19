@@ -5,8 +5,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>奕飞扬|陈枭的个人博客</title>
-	<meta name="keywords" content="盒老师">
-	<meta name="content" content="盒老师">
+	<meta name="keywords" content="陈枭">
+	<meta name="content" content="奕飞扬">
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
     <link type="text/css" rel="stylesheet" href="{% static 'user/css/bootstrap.min.css' %}">
     <link type="text/css" rel="stylesheet" href="{% static 'user/css/jquery.Jcrop.min.css' %}">
@@ -229,7 +229,7 @@
                 <a href="#" class="zhuce_qq">QQ注册</a>
                 <a href="#" class="zhuce_wb">微博注册</a>
                 <a href="#" class="zhuce_wx">微信注册</a>
-                <p>已有账号？<a href="login.html">立即登录</a></p>
+                <p>已有账号？<a href="{% url 'login' %}?next=/">立即登录</a></p>
             
             </div>
         </div>

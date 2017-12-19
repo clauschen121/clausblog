@@ -29,13 +29,24 @@
 
 <body id="blog">
 
-<header class="am-g am-g-fixed blog-fixed blog-text-center blog-header">
+<header class="am-g am-g-fixed blog-fixed blog-text-center blog-header" style="margin-top:5px;">
     <div class="am-u-sm-8 am-u-sm-centered">
         <!-- <img width="200" src="http://s.amazeui.org/media/i/brand/amazeui-b.png" alt="Amaze UI Logo"/> -->
-        <h2 class="am-hide-sm-only">
+        <h2 class="am-hide-sm-only" style="margin-bottom: 0px;">
           <span class="claus-domain am-kai">奕飞扬</span>
           <span class="claus-title">陈枭的个人博客</span>
         </h2>
+        <span class="claus-login">
+          {% if user.is_authenticated %}
+            欢迎你：<a href="#">{{ user.username }}</a>
+            <a href="{% url 'logout' %}?next={{ request.path }}" class="logout" style="margin-left: 10px;">注销</a>
+          {% else %}
+            你还没有登录，请
+            <a href="{% url 'login' %}?next={{ request.path }}" class="login">登录</a>
+            或者
+            <a href="{% url 'users:register' %}?next={{ request.path }}" class="register">注册</a>
+          {% endif %}
+        </span>
     </div>
 </header>
 <hr>

@@ -5,6 +5,7 @@ from .forms import UserForm, UserProfileForm
 
 
 def register(request):
+    redirect_to = request.POST.get('next', request.GET.get('next', ''))
     if request.method == 'POST':
         uform = UserForm(data=request.POST)
         pform = UserProfileForm(data=request.POST)
@@ -19,6 +20,6 @@ def register(request):
         pform = UserProfileForm()
     return render(request, 'users/register.html', context={
         'pform': pform,
-        'uform': uform
+        'uform': uform,
+        'next': redirect_to
     })
-

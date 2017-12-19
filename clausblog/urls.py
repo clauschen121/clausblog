@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'^all/rss/$', AllArticlesRssFeed(), name='rss'),
     url(r'^search/', include('haystack.urls')),
     url(r'^users/', include('MyUser.urls')),
+    url(r'^users/', include('django.contrib.auth.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,62 @@
+{% load staticfiles %}
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>奕飞扬|陈枭的个人博客</title>
+    <meta name="keywords" content="陈枭">
+    <meta name="content" content="奕飞扬">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <link type="text/css" rel="stylesheet" href="{% static 'user/css/login.css' %}">
+    <script type="text/javascript" src="{% static 'user/js/jquery.min.js' %}"></script>
+    <script>
+        $(function(){
+            $('#id_username').attr('placeholder', '用户名');
+            $('#id_password').attr('placeholder', '密码');
+        })
+    </script>
+    <style>
+        .errorlist{
+            color:red;
+            line-height: 15px;
+        }
+    </style>
+</head>
+<body class="login_bj" >
+<div class="zhuce_body">
+    <div class="zhuce_kong login_kuang">
+    	<div class="zc">
+        	<div class="bj_bai">
+            <h3>登录</h3>
+       	  	  <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                <div class="error_list">{{ form.non_field_errors }}</div>
+                {% for field in form %}
+                <div class="kuang_txt">
+                    {{ field }}
+                    {{ field.errors }}
+                </div>
+                {% endfor %}
+                <div>
+               		<a href="#">忘记密码？</a><input name="" type="checkbox" value="" checked><span>记住我</span> 
+                </div>
+                <input name="登录" type="submit" class="btn_zhuce" value="登录">
+                <input type="hidden" name='next' value='{{ next }}'>
+                </form>
+            </div>
+        	<div class="bj_right">
+            	<p>使用以下账号直接登录</p>
+                <a href="#" class="login_qq">QQ登陆</a>
+                <a href="#" class="login_wb">微博登陆</a>
+                <a href="#" class="login_wx">微信登陆</a>
+                <p>没有账号？<a href="{% url 'users:register' %}?next={{ request.path }}">立即注册</a></p>
+            </div>
+        </div>
+        <P>www.clauschen.com&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;欢迎登陆陈枭的博客</P>
+    </div>
+
+</div>
+    
+</body>
+</html>
