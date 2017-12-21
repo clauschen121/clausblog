@@ -61,6 +61,10 @@ class Article(models.Model):
         self.views += 1
         self.save(update_fields=['views'])
 
+    def increase_likes(self):
+        self.likes += 1
+        self.save(update_fields=['likes'])
+
     def save(self, *args, **kwargs):
         if not self.excerpt:
             md = markdown.Markdown(extensions=[

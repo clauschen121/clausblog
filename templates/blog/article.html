@@ -1,6 +1,23 @@
 {% extends 'base.html' %}
 
 {% block main %}
+    <script type="text/javascript">
+      $(function(){
+        $('#likes-a').click(function(){
+          $.ajax({
+            type: 'GET',
+            url: '{% url 'blog:articlelikes' %}',
+            data: {'id': {{ article.id }}},
+            dataType:'json',
+            success: function(ret){
+              $('#likes').html(ret.result);
+              $('#likes-a').attr('disabled', true);
+              $('#likes-t').html('已赞');
+            }
+          })
+        });
+      })
+    </script>
     <div class="am-u-md-8 am-u-sm-12">
       <article class="am-article blog-article-p">
         <div class="am-article-hd">
@@ -23,6 +40,11 @@
       </article>
         
         <div class="am-g blog-article-widget blog-article-margin">
+          <div class="am-u-lg-4 am-u-md-5 am-u-sm-7 am-u-sm-centered blog-text-center" style="margin-bottom: 30px;">
+            <button id='likes-a' class="am-btn am-round" style="background-color: #fff;">
+              <span class="am-icon-heart-o" style="color:#c36855; width: 150px; height: 40px; font-size: 18px; border: 1px solid #c36855; border-radius: 10px; line-height: 40px;">&nbsp;&nbsp;<span id='likes-t'>赞一下</span>&nbsp;&nbsp;|&nbsp;&nbsp;<span id="likes">{{ article.likes }}</span></span>
+            </button>
+          </div>
           <div class="am-u-lg-4 am-u-md-5 am-u-sm-7 am-u-sm-centered blog-text-center">
             <span class="am-icon-tags"> &nbsp;</span>标签<br/>
             {% for tag in article.tags.all %}
@@ -92,20 +114,23 @@
           </fieldset>
         </form>
 
-        <hr style="background-color:#10D07A; height: 2px; border:none;">
+        <hr style="background-color:#ccc; height: 1px; border:none;">
         <ul style="margin: 0; padding: 0;">
           {% for comment in comment_list  %}
           <li style="list-style: none;">
-            <div class="am-g blog-author blog-article-margin">
+            <div class="am-g blog-author" style="margin-top: 15px;">
               <div class="am-u-sm-3 am-u-md-3 am-u-lg-2" style="text-align: center;">
                 <img src="{{ comment.user.headimg.url }}" alt="" class="blog-author-img am-circle" style="margin-bottom: 5px;">
-                <span class="blog-color">{{ comment.user.user.username }}</span>
+                <span style="color:#777;">{{ comment.user.user.username }}</span>
               </div>
-              <div class="am-u-sm-9 am-u-md-9 am-u-lg-10">
-                <p style="word-break:break-all;">{{ comment.text }}</p>
+              <div class="am-u-sm-9 am-u-md-9 am-u-lg-10" >
+                <p style="font-size: 10px; color: #aaa; text-align: right;">发表于：{{ comment.created_time }}</p>
+                <div style="word-break:break-all; margin-left: 8px;">{{ comment.text|safe }}</div>
+                <hr style="border:1px dotted #eee;">
+                <p style="margin-bottom: 0px; color: #f26d7e; font-style: italic; font-size: 10px;"><b>个性签名：</b>{{ comment.user.description }}</p>
               </div>
             </div>
-            <hr>
+            <hr style="background-color:#ccc; height: 1px; border:none;">
           </li>
           {% empty %}
           暂无评论

@@ -17,6 +17,7 @@
     <script type="text/javascript">
         var jcropApi;
         function imageClip(fileObj){
+            $('input[name="path"]').val($('#id_orgimg').val());
             var file = fileObj.files[0];
             if(file.size>1024*1024*2){
                 alert('图片大小不能超过2MB!');
@@ -137,6 +138,7 @@
         }
         function clearfile(){
             $('#id_orgimg').val('');
+            $('input[name="path"]').val($('#id_orgimg').val());
         }
     </script>
 
@@ -144,7 +146,7 @@
 <body class="login_bj" >
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-lg" role="document">
+  <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" onclick="clearfile()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -154,7 +156,7 @@
         <div style="float:left;">
             <img id='element_id' src="" alt="图片加载失败" style="width:120px; height: 120px;">
         </div>
-        <div id="preview-pane" style="float:right;">
+        <div id="preview-pane" style="float:right; text-align: center;">
             <div id="image_desc" style="text-align: center; margin-bottom: 20px;">头像预览</div>
             <div class="preview-container" style="width: 120px; height: 120px; margin-right:20px; overflow: hidden;">
                 <img src="" class="jcrop-preview" alt="头像预览">
@@ -175,7 +177,7 @@
     	<div class="zc">
         	<div class="bj_bai">
             <h3>欢迎注册</h3>
-       	  	  <form action="{% url 'users:register' %}" method="post" enctype="multipart/form-data">
+       	  	  <form name='form1' action="{% url 'users:register' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="kuang_txt">
                     {{ uform.username }}
@@ -220,6 +222,8 @@
                 <div class="kuang_txt">
                     {{ pform.img_r }}
                     {{ pform.img_r.errors }}
+                    <input type="button" value="上传照片" onclick="document.form1.orgimg.click()" style="width: 80px; padding:0px; background-color: white; color: #f26d7e; border-radius: 5px; border:1px solid #f26d7e;">
+                    <input name="path" readonly style="width: 160px; border:0px; margin-left: 0px; padding: 0px;">
                 </div>
                 <input name="注册" type="submit" class="btn_zhuce" value="注册">
                 </form>

@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block main %}
+<div class="am-u-md-8 am-u-sm-12">
+    <ul style="margin: 0; padding: 0;">
+      {% for comment in comment_list  %}
+      <li style="list-style: none;">
+        <div class="am-g blog-author" style="margin-top: 15px;">
+          <div class="am-u-sm-3 am-u-md-3 am-u-lg-2" style="text-align: center;">
+            <img src="{{ comment.user.headimg.url }}" alt="" class="blog-author-img am-circle" style="margin-bottom: 5px;">
+            <span style="color:#777;">{{ comment.user.user.username }}</span>
+          </div>
+          <div class="am-u-sm-9 am-u-md-9 am-u-lg-10" >
+            <p style="font-size: 10px; color: #aaa; text-align: right;">发表于：{{ comment.created_time }}</p>
+            <div style="word-break:break-all; margin-left: 8px;">{{ comment.text|safe }}</div>
+            <hr style="border:1px dotted #eee;">
+            <p style="margin-bottom: 0px; color: #f26d7e; font-style: italic; font-size: 10px;"><b>个性签名：</b>{{ comment.user.description }}</p>
+          </div>
+        </div>
+        <hr style="background-color:#ccc; height: 1px; border:none;">
+      </li>
+      {% empty %}
+      暂无评论
+      {% endfor %}
+    </ul>
+    {% if is_paginated %}
+        <ul class="am-pagination blog-article-margin claus-pagination">
+          <li class="am-pagination-prev claus-pagination-prev">
+          {% if first %}
+            <a href="?page=1">1</a>
+          {% endif %}
+          {% if left %}
+            {% if left_has_more %}
+              <span>...</span>
+            {% endif %}
+            {% for i in left %}
+              <a href="?page={{ i }}">{{ i }}</a>
+            {% endfor %}
+          {% endif %}
+          <a href="?page={{ page_obj.number }}">{{ page_obj.number }}</a>
+          {% if right %}
+            {% for i in right %}
+              <a href="?page={{ i }}">{{ i }}</a>
+            {% endfor %}
+            {% if right_has_more %}
+              <span>...</span>
+            {% endif %}
+          {% endif %}
+          {% if last %}
+            <a href="?page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a>
+          {% endif %}
+
+          <!-- <li class="am-pagination-next"><a href="">不远的未来 &raquo;</a></li> -->
+        </ul>
+    {% endif %}
+    
+    <form action="{% url 'comments:commentmeadd' %}" class="am-form am-g" method="post">
+      {% csrf_token %}
+      <h3 class="blog-comment">留言</h3>
+      <fieldset style="margin-bottom: 5px;">
+        <div class="am-form-group">
+          {{ form.text }}
+          {{ form.text.errors }}
+        </div>
+        {% if user.is_authenticated %}
+        <div class="am-form-group" style="display: none;">
+          <input name="user" id='id_user' type="text" value="{{ user.userprofile.id }}">
+        </div>
+        {% else %}
+        <script type="text/javascript">
+          $('#id_text').attr('disabled',true);
+        </script>
+          登陆后才能留言，请先<a href="{% url 'login' %}?next={{ request.path }}" class="login">登录</a>或<a href="{% url 'users:register' %}?next={{ request.path }}" class="register">注册</a>
+        {% endif %}
+        <p><button type="submit" class="am-btn am-btn-default">留言</button></p>
+      </fieldset>
+    </form>
+</div>
+{% endblock main %}
+ 

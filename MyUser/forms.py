@@ -43,7 +43,7 @@ class UserProfileForm(ModelForm):
         fields = ['description', 'orgimg', 'img_x',
                   'img_y', 'img_w', 'img_h', 'img_r']
         widgets = {'description': Textarea(attrs={'placeholder': '一句话描述你自己吧!', 'rows': 5, 'style': 'background:url(/static/user/images/description.png) no-repeat 10px'}),
-                   'orgimg': FileInput(attrs={'accept': 'image/gif,image/jpeg,image/jpg,image/png,image/svg', 'onchange': 'imageClip(this)'}),
+                   'orgimg': FileInput(attrs={'accept': 'image/gif,image/jpeg,image/jpg,image/png,image/svg', 'onchange': 'imageClip(this)', 'style':'display:none;'}),
                    'img_x': HiddenInput(),
                    'img_y': HiddenInput(),
                    'img_w': HiddenInput(),

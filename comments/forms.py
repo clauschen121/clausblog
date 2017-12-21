@@ -6,7 +6,8 @@
 
 
 from django import forms
-from .models import Comment
+from .models import Comment, Commentme
+from django.forms import Textarea
 
 
 class CommentForm(forms.ModelForm):
@@ -14,3 +15,16 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['user', 'text']
+        widgets = {
+            'text': Textarea(attrs={'placeholder': '支持markdown格式留言'})
+        }
+
+
+class CommentMeForm(forms.ModelForm):
+
+    class Meta:
+        model = Commentme
+        fields = ['user', 'text']
+        widgets = {
+            'text': Textarea(attrs={'placeholder': '支持markdown格式留言'})
+        }

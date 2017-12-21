@@ -1,11 +1,12 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from .models import Article, Category, Tag, Gallery
 from comments.forms import CommentForm
 import markdown
 from django.views.generic import ListView, DetailView
 from MyUser.models import UserProfile
 from django.shortcuts import render
-
+from django.http import HttpResponse
+import json
 
 # Create your views here.
 
@@ -135,6 +136,13 @@ class ArticleView(DetailView):
         context = super(ArticleView, self).get_context_data(**kwargs)
         form = CommentForm()
         comment_list = self.object.comment_set.all()
+        md = markdown.Markdown(extensions=[
+            'markdown.extensions.extra',
+            'markdown.extensions.codehilite',
+            'markdown.extensions.toc',
+        ])
+        for comment in comment_list:
+            comment.text = md.convert(comment.text)
         pre_article = self.get_pre_article()
         next_article = self.get_next_article()
         context.update({
@@ -228,3 +236,18 @@ class GalleryView(IndexView):
 
 def Donate(request):
     return render(request, 'blog/donate.html')
+
+
+def ArticleLikes(request):
+    if request.method == 'GET':
+        if(request.GET.get('id')):
+            id = int(request.GET.get('id'))
+            article = get_object_or_404(Article, pk=id)
+            article.increase_likes()
+            a = article.likes
+            dict = {'result': a}
+            return HttpResponse(json.dumps(dict), content_type='application/json')
+        else:
+            return redirect('/')
+    else:
+        return redirect('/')
