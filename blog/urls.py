@@ -22,5 +22,6 @@ urlpatterns = [
     url(r'^author/(?P<pk>[0-9]+)/$',
         views.AuthorView.as_view(), name='author'),
     url(r'^gallery/$', views.GalleryView.as_view(), name='gallery'),
-    url(r'^donate/$', views.Donate, name='donate')
+    url(r'^donate/$', views.Donate, name='donate'),
+    url(r'^aboutme/$', views.AboutMe, name='aboutme'),
 ]

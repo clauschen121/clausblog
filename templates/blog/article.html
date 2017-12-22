@@ -17,6 +17,19 @@
           })
         });
       })
+
+      function textCounter(maxlimit) {    
+        // 函数，3个参数，表单名字，表单域元素名，限制字符；
+        var field = $('textarea[name="text"]')
+        var countfield = $('span[name="remLen"]')
+        if(field.val().length > maxlimit){
+          //如果元素区字符数大于最大字符数，按照最大字符数截断；    
+          field.val(field.val().substring(0, maxlimit));
+        }else{
+          //在记数区文本框内显示剩余的字符数；    
+          countfield.text(maxlimit - field.val().length);
+        }       
+      }    
     </script>
     <div class="am-u-md-8 am-u-sm-12">
       <article class="am-article blog-article-p">
@@ -98,6 +111,7 @@
             <div class="am-form-group">
               {{ form.text }}
               {{ form.text.errors }}
+              <p style="font-size: 14px; color: #777; margin-top: 0px;">还可以输入:<span name="remLen" style="200px;">1000</span>个字符</p>
             </div>
             {% if user.is_authenticated %}
             <div class="am-form-group" style="display: none;">

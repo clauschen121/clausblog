@@ -185,6 +185,7 @@ def archives(request, year, month):
 
 
 class ArchivesView(IndexView):
+    template_name = 'blog/index-nobanner.html'
 
     def get_queryset(self):
         year = self.kwargs.get('year')
@@ -207,6 +208,7 @@ def category(request, pk):
 
 
 class CategoryView(IndexView):
+    template_name = 'blog/index-nobanner.html'
 
     def get_queryset(self):
         cate = get_object_or_404(Category, pk=self.kwargs.get('pk'))
@@ -214,6 +216,7 @@ class CategoryView(IndexView):
 
 
 class TagView(IndexView):
+    template_name = 'blog/index-nobanner.html'
 
     def get_queryset(self):
         tag = get_object_or_404(Tag, pk=self.kwargs.get('pk'))
@@ -221,6 +224,7 @@ class TagView(IndexView):
 
 
 class AuthorView(IndexView):
+    template_name = 'blog/index-nobanner.html'
 
     def get_queryset(self):
         author = get_object_or_404(UserProfile, pk=self.kwargs.get('pk'))
@@ -251,3 +255,6 @@ def ArticleLikes(request):
             return redirect('/')
     else:
         return redirect('/')
+
+def AboutMe(request):
+    return render(request, 'blog/about-me.html')

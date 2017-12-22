@@ -16,7 +16,11 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ['user', 'text']
         widgets = {
-            'text': Textarea(attrs={'placeholder': '支持markdown格式留言'})
+            'text': Textarea(attrs={
+                'placeholder': '支持markdown格式留言,最多只能输入1000字',
+                'onKeyDown': 'textCounter(1000);',
+                'onKeyUp': 'textCounter(1000);'
+            })
         }
 
 
@@ -26,5 +30,9 @@ class CommentMeForm(forms.ModelForm):
         model = Commentme
         fields = ['user', 'text']
         widgets = {
-            'text': Textarea(attrs={'placeholder': '支持markdown格式留言'})
+            'text': Textarea(attrs={
+                'placeholder': '支持markdown格式留言,最多只能输入1000字',
+                'onKeyDown': 'textCounter(1000);',
+                'onKeyUp': 'textCounter(1000);'
+            })
         }

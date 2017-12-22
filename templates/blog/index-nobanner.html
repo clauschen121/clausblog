@@ -1,34 +1,5 @@
 {% extends 'base.html' %}
 {% load blog_tags %}
-{% block banner %}
-<div class="am-g am-g-fixed blog-fixed am-u-sm-centered blog-article-margin">
-    <div data-am-widget="slider" class="am-slider am-slider-default slider-blog" data-am-slider='{&quot;controlNav&quot;:false}' >
-    {% get_sliders as slider_list %}
-    <ul class="am-slides">
-      {% for slider in slider_list %}
-      <li>
-            <img src="{{ slider.image.img.url }}">
-            <!-- <div class="blog-slider-desc am-slider-desc ">
-                <div class="blog-text-center blog-slider-con">
-                    <span><a href="" class="blog-color">{{ slider.category }} &nbsp;</a></span>               
-                    <h1 class="blog-h-margin"><a href="">{{ slider.title }}</a></h1>
-                    <p>{{ slider.excerpt }}
-                    </p>
-                    <span class="blog-bor">{{ slider.created_time }}</span>
-                    <br><br><br><br><br><br><br>                
-                </div>
-            </div> -->
-            <div class="am-slider-desc">
-              {{ slider.title }}
-            </div>
-      </li>
-      {% empty %}
-      没有滑动图片
-      {% endfor %}
-    </ul>
-    </div>
-</div>
-{% endblock banner %}
 
 {% block main %}
     <div class="am-u-md-8 am-u-sm-12">

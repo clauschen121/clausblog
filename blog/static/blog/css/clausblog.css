@@ -77,3 +77,34 @@ a.logout, a.login, a.register{
 a.logout:hover, a.login:hover, a.register:hover{
 	color:#10D07A;
 }
+
+p.about-p{
+	text-align: center;
+}
+
+div.about-item{
+	margin-left: 30px;
+	margin-bottom: 15px;
+	width: 100%;
+	float:left;
+}
+
+div.about-item div{
+	float:left;
+}
+
+div.about-progress{
+	background-color:#eee;
+	height: 34px;
+}
+
+div.about-progress div{
+	line-height: 34px;
+	font-size:15px;
+	text-align: right;
+	padding-right: 10px;
+}
+
+span.about-icon{
+	margin:20px;
+}
