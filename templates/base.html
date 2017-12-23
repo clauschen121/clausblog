@@ -15,12 +15,12 @@
   <link rel="stylesheet" href="{% static 'blog/css/github.css' %}">
   <link rel="icon" type="image/png" href="{% static 'blog/i/favicon.png' %}">
   <meta name="mobile-web-app-capable" content="yes">
-  <link rel="icon" sizes="192x192" href="{% static 'blog/i/app-icon72x72@2x.png' %}">
+  <link rel="icon" sizes="192x192" href="{% static 'blog/i/logo-s.jpg' %}">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
-  <link rel="apple-touch-icon-precomposed" href="{% static 'blog/i/app-icon72x72@2x.png' %}">
-  <meta name="msapplication-TileImage" content="{% static 'blog/i/app-icon72x72@2x.png' %}">
+  <link rel="apple-touch-icon-precomposed" href="{% static 'blog/i/logo-s.jpg' %}">
+  <meta name="msapplication-TileImage" content="{% static 'blog/i/logo-s.jpg' %}">
   <meta name="msapplication-TileColor" content="#0e90d2">
   <link rel="stylesheet" href="{% static 'blog/css/amazeui.min.css' %}">
   <link rel="stylesheet" href="{% static 'blog/css/app.css' %}">
@@ -37,7 +37,8 @@
     <div class="am-u-sm-8 am-u-sm-centered">
         <!-- <img width="200" src="http://s.amazeui.org/media/i/brand/amazeui-b.png" alt="Amaze UI Logo"/> -->
         <h2 class="am-hide-sm-only" style="margin-bottom: 0px;">
-          <span class="claus-domain am-kai">奕飞扬</span>
+          <a href="/"><img src="{% static 'blog/i/logo-s.jpg' %}" alt="" style="max-width: 60px; margin-top:-25px;"></a>
+          <span class="claus-domain am-kai" style="margin-left: 20px;">奕飞扬</span>
           <span class="claus-title">陈枭的个人博客</span>
         </h2>
         <span class="claus-login">
@@ -60,16 +61,16 @@
 
   <div class="am-collapse am-topbar-collapse" id="blog-collapse">
     <ul class="am-nav am-nav-pills am-topbar-nav">
-      <li class="am-active"><a href="{% url 'blog:index' %}">首页</a></li>
+      <li><a href="{% url 'blog:index' %}">首页</a></li>
       <li class="am-dropdown" data-am-dropdown>
         <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
           技术杂谈 <span class="am-icon-caret-down"></span>
         </a>
         <ul class="am-dropdown-content">
-          <li><a href="lw-index.html">Python</a></li>         
-          <li><a href="lw-index-nosidebar.html">web前端</a></li>
-          <li><a href="lw-index-center.html">通信网络</a></li>
-          <li><a href="lw-index-noslider.html">转载知识</a></li>
+          <li><a href="{% url 'blog:category' 2 %}">Python</a></li>         
+          <li><a href="{% url 'blog:category' 1 %}">web前端</a></li>
+          <li><a href="{% url 'blog:category' 3 %}">通信网络</a></li>
+          <li><a href="{% url 'blog:category' 4 %}">转载知识</a></li>
           <li><a href="">其他</a></li>
         </ul>
       </li>
@@ -78,12 +79,12 @@
           心情随笔 <span class="am-icon-caret-down"></span>
         </a>
         <ul class="am-dropdown-content">
-          <li><a href="lw-index.html">个人日志</a></li>
-          <li><a href="#">随便写写</a></li>         
+          <li><a href="{% url 'blog:category' 6 %}">个人日志</a></li>
+          <li><a href="{% url 'blog:category' 9 %}">随便写写</a></li>         
           <li><a href="/gallery/">图片故事</a></li>
         </ul>
       </li>
-      <li><a href="lw-img.html">工具介绍</a></li>
+      <li><a href="{% url 'blog:category' 8 %}">工具介绍</a></li>
       <li><a href="{% url 'blog:aboutme' %}">关于自己</a></li>
       <li><a href="{% url 'comments:commentme' %}">留言</a></li>
       <li><a href="{% url 'blog:donate' %}">赞助作者</a></li>
@@ -187,40 +188,14 @@
 
 
 
-  <footer class="blog-footer">
-    <div class="am-g am-g-fixed blog-fixed am-u-sm-centered blog-footer-padding">
-        <div class="am-u-sm-12 am-u-md-4- am-u-lg-4">
-            <h3>模板简介</h3>
-            <p class="am-text-sm">这是一个使用amazeUI做的简单的前端模板。<br> 博客/ 资讯类 前端模板 <br> 支持响应式，多种布局，包括主页、文章页、媒体页、分类页等<br>嗯嗯嗯，不知道说啥了。外面的世界真精彩<br><br>
-            Amaze UI 使用 MIT 许可证发布，用户可以自由使用、复制、修改、合并、出版发行、散布、再授权及贩售 Amaze UI 及其副本。</p>
+  <footer class="blog-footer" style="padding-top: 15px;">
+    <div class="am-g am-g-fixed blog-fixed am-u-sm-centered">
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+            <h3>网站简介</h3>
+            <p class="am-text-md">奕飞扬 版权所有丨采用 amazeui 主题丨基于 Django 构建 © 2017丨托管于 阿里云主机丨蜀ICP备17040163号-1</p>
         </div>
-        <div class="am-u-sm-12 am-u-md-4- am-u-lg-4">
-            <h3>社交账号</h3>
-            <p>
-                <a href=""><span class="am-icon-qq am-icon-fw am-primary blog-icon blog-icon"></span></a>
-                <a href=""><span class="am-icon-github am-icon-fw blog-icon blog-icon"></span></a>
-                <a href=""><span class="am-icon-weibo am-icon-fw blog-icon blog-icon"></span></a>
-                <a href=""><span class="am-icon-reddit am-icon-fw blog-icon blog-icon"></span></a>
-                <a href=""><span class="am-icon-weixin am-icon-fw blog-icon blog-icon"></span></a>
-            </p>
-            <h3>Credits</h3>
-            <p>我们追求卓越，然时间、经验、能力有限。Amaze UI 有很多不足的地方，希望大家包容、不吝赐教，给我们提意见、建议。感谢你们！</p>          
-        </div>
-        <div class="am-u-sm-12 am-u-md-4- am-u-lg-4">
-              <h1>我们站在巨人的肩膀上</h1>
-             <h3>Heroes</h3>
-            <p>
-                <ul>
-                    <li>jQuery</li>
-                    <li>Zepto.js</li>
-                    <li>Seajs</li>
-                    <li>LESS</li>
-                    <li>...</li>
-                </ul>
-            </p>
-        </div>
-    </div>    
-    <div class="blog-text-center">© 2015 AllMobilize, Inc. Licensed under MIT license. Made with love By LWXYFER. 模板收集自 <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> -  More Templates  <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></div>  </footer>
+    </div>
+  </footer>
 
 
 

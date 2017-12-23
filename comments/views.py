@@ -52,10 +52,11 @@ class CommentView(ListView):
         form = CommentMeForm()
 
         pagination_data = self.pagination_data(paginator, page, is_paginated)
-
+        count = Commentme.objects.count()
         context.update(pagination_data)
         context.update({
-            'form': form
+            'form': form,
+            'count': count
         })
         md = markdown.Markdown(extensions=[
             'markdown.extensions.extra',

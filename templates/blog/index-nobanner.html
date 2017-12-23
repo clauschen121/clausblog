@@ -4,9 +4,13 @@
 {% block main %}
     <div class="am-u-md-8 am-u-sm-12">
     {% for article in article_list %}
-        <article class="am-g blog-entry-article">
+        <article class="am-g blog-entry-article" style="padding-bottom: 5px;">
             <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
                 <a href="{{ article.get_absolute_url }}"><img src="{{ article.image.img.url }}" alt="{{ article.image.name }}" class="am-u-sm-12"></a>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="am-icon-eye" style="color:#4063bf;"></span> &nbsp;<span>{{ article.views }} &nbsp;</span>
+                <span class="am-icon-comment" style="color: #88d793;"></span> &nbsp;<span>{{ article.comment_set.count }} &nbsp;</span>
+                <span class="am-icon-heart" style="color:#c36855"> &nbsp;</span><span>{{ article.likes }}</span>
             </div>
             <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
                 <span><a href="{% url 'blog:category' article.category.pk %}" class="blog-color">{{ article.category.name }} &nbsp;</a></span>

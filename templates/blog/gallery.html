@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
 
 {% block main %}
-<hr>
 <!-- content srart -->
 <!-- <div class="am-g am-g-fixed blog-fixed blog-content"> -->
-<div class="am-u-md-8 am-u-sm-12">
+<div class="am-u-md-12 am-u-sm-12">
   <!-- <figure data-am-widget="figure" class="am am-figure am-figure-default "   data-am-figure="{  pureview: 'true' }">
       <div id="container">
         {% for gallery in gallery_list %}          
@@ -14,8 +13,8 @@
         {% endfor %}  
     </div> 
   </figure> -->
-  <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2
-  am-avg-md-3 am-avg-lg-4 am-gallery-overlay" data-am-gallery="{ pureview: true }" >
+  <ul data-am-widget="gallery" class="am-gallery am-avg-sm-3
+  am-avg-md-4 am-avg-lg-6 am-gallery-overlay" data-am-gallery="{ pureview: true }" >
     {% for gallery in gallery_list %}
       <li>
         <div class="am-gallery-item">
@@ -32,3 +31,5 @@
   </ul>
 </div>
 {% endblock main %}
+{% block sidebar %}
+{% endblock sidebar %}
