@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'w=v@h=j-d)cuc0rg=m9mqe@52f@$&dgsrl*d6^!b!leg*$jyw7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.clauschen.com']
 
 
 # Application definition
@@ -142,3 +142,5 @@ MEDIA_URL = '/media/'
 
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
