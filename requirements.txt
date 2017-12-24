@@ -40,7 +40,6 @@ PyInstaller==3.2.1
 pymongo==3.5.1
 PyMySQL==0.7.11
 pyOpenSSL==17.3.0
-pypiwin32==219
 python-whois==0.6.5
 pytz==2017.2
 queuelib==1.4.2
@@ -55,6 +54,5 @@ w3lib==1.18.0
 webencodings==0.5.1
 Werkzeug==0.12.1
 Whoosh==2.7.4
-wxPython-Phoenix==3.0.3.dev2828+929a8af
 yarl==0.10.1
 zope.interface==4.4.3

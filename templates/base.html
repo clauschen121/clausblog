@@ -67,11 +67,11 @@
           技术杂谈 <span class="am-icon-caret-down"></span>
         </a>
         <ul class="am-dropdown-content">
-          <li><a href="{% url 'blog:category' 2 %}">Python</a></li>         
-          <li><a href="{% url 'blog:category' 1 %}">web前端</a></li>
+          <li><a href="{% url 'blog:category' 1 %}">Python</a></li>         
+          <li><a href="{% url 'blog:category' 2 %}">web前端</a></li>
           <li><a href="{% url 'blog:category' 3 %}">通信网络</a></li>
           <li><a href="{% url 'blog:category' 4 %}">转载知识</a></li>
-          <li><a href="">其他</a></li>
+          <li><a href="{% url 'blog:category' 5 %}">其他</a></li>
         </ul>
       </li>
       <li class="am-dropdown" data-am-dropdown>
@@ -80,11 +80,11 @@
         </a>
         <ul class="am-dropdown-content">
           <li><a href="{% url 'blog:category' 6 %}">个人日志</a></li>
-          <li><a href="{% url 'blog:category' 9 %}">随便写写</a></li>         
+          <li><a href="{% url 'blog:category' 7 %}">随便写写</a></li>         
           <li><a href="/gallery/">图片故事</a></li>
         </ul>
       </li>
-      <li><a href="{% url 'blog:category' 8 %}">工具介绍</a></li>
+      <li><a href="{% url 'blog:category' 9 %}">工具介绍</a></li>
       <li><a href="{% url 'blog:aboutme' %}">关于自己</a></li>
       <li><a href="{% url 'comments:commentme' %}">留言</a></li>
       <li><a href="{% url 'blog:donate' %}">赞助作者</a></li>
