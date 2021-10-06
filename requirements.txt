@@ -44,7 +44,7 @@ python-whois==0.6.5
 pytz==2017.2
 queuelib==1.4.2
 requests==2.18.4
-Scrapy==1.4.0
+Scrapy==1.8.1
 selenium==3.5.0
 service-identity==17.0.0
 six==1.10.0
